@@ -515,7 +515,12 @@ def get_worst_performers(df, vendor, cnt_col, avail_col, top_n=10):
     cols.append(avail_col)
     if "Site Category" in sub.columns:
         cols.append("Site Category")
-    return sub.nsmallest(top_n, avail_col)[cols].reset_index(drop=True)
+    available_cols = [c for c in cols if c in sub.columns]
+
+return (
+    sub.nsmallest(top_n, avail_col)[available_cols]
+    .reset_index(drop=True)
+)
 
 
 def get_sdca_summary(df):
